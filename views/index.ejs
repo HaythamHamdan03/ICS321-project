@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sport Sphere - Dashboard</title>
+    <link rel="stylesheet" href="/public/styles/main.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Top Navigation Bar -->
+      <div class="top-nav">
+        <img src="/public/images/logo.png" alt="Sport Sphere Logo" class="logo" />
+        <span class="welcome">Welcome Haitham!</span>
+        <div class="nav-title">Tournaments</div>
+        <div class="nav-actions">
+          <button class="nav-button" id="add-tournament-btn">
+            Add Tournament
+          </button>
+          <button class="nav-button" id="logout-btn">Log Out</button>
+        </div>
+      </div>
+
+      <!-- Date Scroller -->
+      <div class="date-scroller">
+        <div class="date-list">
+          <div class="date-item">Mon 15</div>
+          <div class="date-item">Tue 16</div>
+          <div class="date-item active">Wed 17</div>
+          <div class="date-item">Thu 18</div>
+          <div class="date-item">Fri 19</div>
+          <div class="date-item">Sat 20</div>
+          <div class="date-item">Sun 21</div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="matches-card">
+          <!-- Match cards will be inserted here by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <script src="/backend/index.js"></script>
+  </body>
+</html>
