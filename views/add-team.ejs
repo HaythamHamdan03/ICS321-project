@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Team - Sport Sphere</title>
+    <link rel="stylesheet" href="/public/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="form-page">
+    <div class="dashboard-container">
+        <div class="top-nav">
+            <div class="nav-title">Add Team to Tournament</div>
+            <div class="nav-actions">
+                <button class="nav-button" onclick="window.location.href='/dashboard'">Back</button>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div class="form-card">
+                <h2 class="form-title">Team Details</h2>
+                <form id="teamForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="tournamentSelect">Select Tournament</label>
+                        <select id="tournamentSelect" name="tournamentSelect" required>
+                            <option value="">-- Select Tournament --</option>
+                            <option value="1">KFUPM Men's Football Tournament</option>
+                            <option value="2">KFUPM Women's Tournament</option>
+                            <option value="3">KFUPM Faculty Tournament</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="teamName">Team Name</label>
+                        <input type="text" id="teamName" name="teamName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Team Logo</label>
+                        <div class="file-upload-container">
+                            <label class="file-upload-label" for="teamLogo">
+                                <div class="file-upload-box">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload team logo</p>
+                                    <p class="file-name" id="fileName">No file selected</p>
+                                </div>
+                                <input type="file" id="teamLogo" name="teamLogo" accept="image/*">
+                            </label>
+                            <div class="logo-preview-container">
+                                <img id="logoPreview" class="logo-preview">
+                            </div>
+                        </div>
+                    </div>   
+                    
+                    <div class="form-group">
+                        <label for="captainName">Captain Name</label>
+                        <input type="text" id="captainName" name="captainName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="teamMembers">Team Members (comma separated)</label>
+                        <textarea id="teamMembers" name="teamMembers" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="form-button secondary" onclick="window.location.href='/dashboard'">Cancel</button>
+                        <button type="submit" class="form-button primary">Add Team</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/backend/add-team.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Tournament - Sport Sphere</title>
+    <link rel="stylesheet" href="/public/styles/main.css" />
+</head>
+<body class="form-page">
+    <div class="dashboard-container">
+        <div class="top-nav">
+            <div class="nav-title">Add New Tournament</div>
+            <div class="nav-actions">
+                <button class="nav-button" onclick="window.location.href='/dashboard'">Back</button>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div class="form-card">
+                <h2 class="form-title">Tournament Details</h2>
+                <form id="tournamentForm">
+                    <div class="form-group">
+                        <label for="tournamentName">Tournament Name</label>
+                        <input type="text" id="tournamentName" name="tournamentName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sportType">Sport Type</label>
+                        <input type="text" id="sportType" name="sportType" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" name="startDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" name="endDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="form-button secondary" onclick="window.location.href='/dashboard'">Cancel</button>
+                        <button type="submit" class="form-button">Create Tournament</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/backend/add-tournament.js"></script>
+</body>
+</html>
