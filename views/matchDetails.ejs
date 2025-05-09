@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Match Details - <%= match.team1.name %> vs <%= match.team2.name %></title>
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <div class="top-nav">
+    <a class="imageasLink" href="/dashboard"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
+    <span class="welcome">Welcome Haitham!</span>
+    <a href="/tournaments" class="nav-title">Tournaments</a>
+    <div class="nav-actions">
+      <button class="nav-button" id="logout-btn">Log Out</button>
+    </div>
+  </div>
+  <div class="detailsContainer">
+    <div class="matchDetailsContainer">
+      <h2 class="matchTitle"><%= match.team1.name %> vs <%= match.team2.name %></h2>
+      <p class="matchSubTitle">
+        <%= match.tournament %> • <%= match.stage %> • <%= match.date %> • <%= match.venue %>
+      </p>
+
+      <!-- Scoreboard -->
+      <div class="matchScoreboard splitLayout">
+        <div class="teamBox">
+          <h3 class="teamName"><%= match.team1.name %></h3>
+          <p class="captain">Captain: <%= match.team1.captain %></p>
+          <p class="goalkeeper">GK: <%= match.team1.goalkeeper %></p>
+        </div>
+
+        <div class="scoreBox <%= match.isUpcoming ? 'upcoming' : '' %>">
+          <% if (match.isUpcoming) { %>
+            <div class="matchScore"><%= match.time %></div>
+            <div class="matchMeta">⏳ Status: Upcoming</div>
+            <div class="matchMeta">📅 Date: <%= match.date %></div>
+            <div class="matchMeta">🏟️ Venue: <%= match.venue %></div>
+          <% } else { %>
+            <div class="matchScore"><%= match.score %></div>
+            <div class="matchMeta">FT • Decided by: <%= match.resultMeta.method %></div>
+            <div class="matchMeta">Player of the Match: <%= match.resultMeta.motm %></div>
+            <div class="matchMeta">Audience: <%= match.resultMeta.audience %></div>
+            <div class="matchMeta">Stoppage Time: <%= match.resultMeta.stoppage.join(', ') %></div>
+          <% } %>
+        </div>
+
+        <div class="teamBox">
+          <h3 class="teamName"><%= match.team2.name %></h3>
+          <p class="captain">Captain: <%= match.team2.captain %></p>
+          <p class="goalkeeper">GK: <%= match.team2.goalkeeper %></p>
+        </div>
+      </div>
+
+      <% if (!match.isUpcoming) { %>
+        <!-- Goals -->
+        <h3 class="sectionTitle">Goals</h3>
+        <div class="goalSplit">
+          <div class="goalList subLeft">
+            <% match.goals.team1.forEach(g => { %>
+              <div class="subItem">
+                <span class="playerIn"><%= g %></span>
+              </div>
+            <% }) %>
+          </div>
+          <div class="goalList subRight">
+            <% match.goals.team2.forEach(g => { %>
+              <div class="subItem">
+                <span class="playerIn"><%= g %></span>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- Bookings -->
+        <h3 class="sectionTitle">Bookings</h3>
+        <div class="goalSplit">
+          <div class="goalList subLeft">
+            <% match.bookings.team1.forEach(b => { %>
+              <div class="subItem">
+                <span class="playerOut"><%= b %></span>
+              </div>
+            <% }) %>
+          </div>
+          <div class="goalList subRight">
+            <% match.bookings.team2.forEach(b => { %>
+              <div class="subItem">
+                <span class="playerOut"><%= b %></span>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- Substitutions -->
+        <h3 class="sectionTitle">Substitutions</h3>
+        <div class="subSplit">
+          <div class="subList subLeft">
+            <% match.subs.team1.forEach(s => { %>
+              <div class="subItem">
+                <span class="playerIn"><%= s.in %> <span class="inIcon">⬅️</span></span>
+                <span class="subTime"><%= s.time %></span>
+                <span class="playerOut"><%= s.out %> <span class="outIcon">➡️</span></span>
+              </div>
+            <% }) %>
+          </div>
+          <div class="subList subRight">
+            <% match.subs.team2.forEach(s => { %>
+              <div class="subItem">
+                <span class="playerIn"><%= s.in %> <span class="inIcon">⬅️</span></span>
+                <span class="subTime"><%= s.time %></span>
+                <span class="playerOut"><%= s.out %> <span class="outIcon">➡️</span></span>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      <% } else { %>
+        <p class="upcomingNote">No match events available yet. Please check back after the match.</p>
+      <% } %>
+
+    </div>
+  </div>
+</body>
+</html>

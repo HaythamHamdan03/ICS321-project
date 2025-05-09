@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 tournament: "KFUPM Men's Football Tournament",
                 team1: {
                     name: "Falcons FC",
-                    logo: "/public/images/teamLogo.png"
+                    logo: "/images/teamLogo.png"
                 },
                 team2: {
                     name: "Last Dance",
-                    logo: "/public/images/teamLogo.png"
+                    logo: "/images/teamLogo.png"
                 },
                 time: "10:00 PM",
                 status: "Upcoming"
@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 tournament: "KFUPM Women's Tournament",
                 team1: {
                     name: "BTS FC",
-                    logo: "/public/images/teamLogo.png"
+                    logo: "/images/teamLogo.png"
                 },
                 team2: {
                     name: "Cooking",
-                    logo: "/public/images/teamLogo.png"
+                    logo: "/images/teamLogo.png"
                 },
                 time: "10:00 PM",
                 status: "Upcoming"
@@ -40,11 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 tournament: "KFUPM Faculty Tournament",
                 team1: {
                     name: "Chen rings",
-                    logo: "/public/images/teamLogo.png"
+                    logo: "/images/teamLogo.png"
                 },
                 team2: {
                     name: "ELD",
-                    logo: "/public/images/teamLogo.png"
+                    logo: "/images/teamLogo.png"
                 },
                 score: "2-1",
                 status: "Completed"
@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 tournament: "KFUPM Global Students Tournament",
                 team1: {
                     name: "Syrians",
-                    logo: "/public/images/teamLogo.png"
+                    logo: "/images/teamLogo.png"
                 },
                 team2: {
                     name: "USA",
-                    logo: "/public/images/teamLogo.png"
+                    logo: "/images/teamLogo.png"
                 },
                 score: "3-2",
                 status: "Completed"

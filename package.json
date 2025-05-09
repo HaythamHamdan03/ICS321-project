@@ -1,0 +1,26 @@
+{
+  "name": "ics321-project",
+  "version": "1.0.0",
+  "description": "guihgiugb",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaythamHamdan03/ICS321-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaythamHamdan03/ICS321-project/issues"
+  },
+  "homepage": "https://github.com/HaythamHamdan03/ICS321-project#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}
+

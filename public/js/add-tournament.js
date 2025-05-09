@@ -16,17 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Tournament Data:', tournamentData);
         alert('Tournament created successfully!');
         
-        // Add the new tournament to your matchesData object
-        const startDate = new Date(tournamentData.startDate);
-        const dateKey = startDate.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            day: 'numeric' 
-        });
-        
-        if (!matchesData[dateKey]) {
-            matchesData[dateKey] = [];
-        }
-        
         // Redirect back to dashboard
         window.location.href = '/dashboard';
     });

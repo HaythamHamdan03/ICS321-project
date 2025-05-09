@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard - Tournaments</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+
+<body>
+  <div class="top-nav">
+    <a class="imageasLink" href="/"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
+    <span class="welcome">Welcome Haitham!</span>
+    <a href="/admintournaments" class="nav-title">Tournaments</a>
+    <div class="nav-actions">
+      <button class="nav-button" id="add-tournament-btn">
+        Add Tournament
+      </button>
+      <button class="nav-button" id="logout-btn">Log Out</button>
+    </div>
+  </div>
+  <div class="homeBody">
+    <div class="pageContainer">
+      <h2>Active Tournaments (Admin)</h2>
+
+      <% tournaments.forEach(tournament => { %>
+        <div class="tournamentAdminItem">
+          <a class="tournamentCard" href="/tournaments/<%= tournament.id %>">
+            <div class="teamIcon">
+              <img class="iconImage" src="https://cdn1.iconfinder.com/data/icons/science-and-education-2/44/trophy-512.png" alt="">
+            </div>
+            <h3 class="tournamentTitle"><%= tournament.name %></h3>
+          </a>
+          <div class="deleteAndEditButtons">
+            <button class="deleteButton" onclick="deleteTournament('<%= tournament.id %>')">Delete</button>
+            <button class="editButton" onclick="editTournament('<%= tournament.id %>')">Edit</button>
+            
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- Custom Confirmation Modal -->
+  <div id="confirmModal" class="modalOverlay">
+    <div class="modalBox">
+      <p id="confirmText">Are you sure you want to delete?</p>
+      <button class="deleteButton" onclick="confirmDelete()">Delete</button>
+      <button class="editButton" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <script src="/js/adminTournaments.js"></script>
+</body>
+
+</html>

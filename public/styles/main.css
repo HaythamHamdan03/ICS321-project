@@ -2,14 +2,14 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #006A71;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #006A71;
+    background-color: #9ACBD0;
+    color: #000000;
 }
-
+.imageasLink{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
 .container {
     text-align: center;
     width: 100%;
@@ -26,12 +26,6 @@ h1 {
     padding: 2.5rem;
     width: 350px;
     margin: 0 auto;
-}
-
-h2 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    color: #006A71;
 }
 
 .form-group {
@@ -86,13 +80,7 @@ input {
 }
 
 /* Base Styles */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #9ACBD0;
-    color: #000000;
-}
+
 
 .logo {
     height: 50px;
@@ -263,6 +251,827 @@ body {
     color: #4CAF50;
 }
 
+/* aziz work */
+  
+  .homeBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #9ACBD0;
+  }
+  
+  h2 {
+    margin-top: 15px;            /* between 0 and 30px */
+    margin-bottom: 1.5rem;       /* keep the better unit */
+    font-size: 2rem;             /* from your version */
+    color: #006A71;              /* use theme color for consistency */
+  }
+  
+  .tournamentCard {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    background-color: #006A71;
+    color: #F2EFE7;
+    padding: 15px 20px;
+    border-radius: 12px;
+    width: 300px;
+    margin: 10px 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .tournamentCard:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  }
+  
+  .tournamentTitle {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .iconImage {
+    width: 40px;
+    height: 40px;
+  }
+  .pageContainer{
+    max-width: 1000px;
+    min-width:  50%;
+    margin: 30px auto;
+    background-color: #f4f9f9;
+    padding: 25px ;
+    border-radius: 16px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .pageContainer h2 {
+    font-size: 2rem;
+    color: #023047;
+    border-bottom: 3px solid #006A71;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  .tournamentContainer {
+    display: flex;
+    align-items: center;
+    width: 340px;
+    margin: 10px 0;
+    gap: 10px;
+  }
+  .tournamentAdminItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 360px;
+    margin-bottom: 15px;
+  }
+  .deleteAndEditButtons{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 10px;
+  }
+  
+  .deleteButton {
+    background-color: #d62828;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 7px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 10px;
+  }
+  
+  .editButton {
+    background-color: #d68b28;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 7px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .deleteButton:hover {
+    background-color: #a61e1e;
+  }
+  
+  .editButton:hover {
+    background-color: #8e5a16;
+  }
+  
+  .detailsContainer {
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #9ACBD0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .detailsTitle {
+    text-align: center;
+    font-size: 2rem;
+    color: #023047;
+    margin-bottom: 20px;
+  }
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalBox {
+    background-color: white;
+    padding: 30px 35px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    min-width: 340px;
+  }
+  
+  .modalBox p {
+    font-size: 1.15rem;
+    margin-bottom: 25px;
+    color: #023047;
+    font-weight: 500;
+  }
+  
+  .modalActions {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 16px;
+  }
+  .tournamentPageContainer{
+    max-width: 1000px;
+    margin: 30px auto;
+    background-color: #f4f9f9;
+    padding: 25px;
+    border-radius: 16px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+  
+  .tab {
+    padding: 10px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    color: #006A71;
+    border-bottom: 3px solid #006A71;
+  }
+  
+  .teamTable {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .teamTable th, .teamTable td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .teamTable th {
+    background-color: #006A71;
+    color: white;
+  }
+  
+  .teamTable tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .fixturesContainer {
+    display: none;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 90%;
+    margin: 20px auto;
+    max-height: 500px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    position: relative;
+    padding: 10px;
+  }
+  
+  .sortBar {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff00;
+    padding: 10px 0;
+    z-index: 2;
+    margin: 10px;
+  }
+  
+  #sortOrder {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #006A71;
+    font-weight: bold;
+    color: #006A71;
+    background-color: #ffffff;
+  }
+  
+  .fixtureGroup {
+    margin-bottom: 25px;
+  }
+  
+  .fixtureDate {
+    color: #023047;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .fixtureItem {
+    display: grid;
+    grid-template-columns: 160px 1fr 80px 1fr 90px; /* tournament, team1, score/time, team2, status */
+    align-items: center;
+    background-color: #006A71;
+    color: #F2EFE7;
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  /* 5-column layout: includes tournament */
+.fixtureItem.fullLayout {
+    display: grid;
+    grid-template-columns: 160px 1fr 80px 1fr 90px;
+    align-items: center;
+  }
+  
+  /* 4-column layout: no tournament */
+  .fixtureItem.compactLayout {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr 90px;
+    align-items: center;
+  }
+  
+  .fixtureItem:hover {
+    transform: scale(1.01);
+  }
+  
+  .fixtureTeam {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .fixtureScore {
+    min-width: 80px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .fixtureStatus {
+    display: flex;
+    justify-content: flex-end;
+    width: 90px;
+  }
+  
+  .statusText {
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+  }
+  
+  .status-upcoming {
+    background-color: #2ecc71;
+  }
+  
+  .status-ft {
+    background-color: #e74c3c;
+  }
+  
+  .statsContainer {
+    display: none;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .innerTabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .innerTab {
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    color: #555;
+  }
+  
+  .innerTab.active {
+    color: #006A71;
+    border-color: #006A71;
+  }
+  
+  .statsTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .statsTable th, .statsTable td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .statsTable th {
+    background-color: #006A71;
+    color: white;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  /* ============ Team Details Enhanced Styles ============ */
+.teamPageContainer {
+    max-width: 1000px;
+    margin: 30px auto;
+    background-color: #f4f9f9;
+    padding: 25px;
+    border-radius: 16px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Title */
+  .teamPageTitle {
+    text-align: center;
+    color: #023047;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+  }
+  
+  /* Tabs */
+  .teamTabs {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  .teamTab {
+    padding: 12px 0;
+    cursor: pointer;
+    font-weight: 600;
+    color: #555;
+    position: relative;
+  }
+  
+  .teamTab.active {
+    color: #006A71;
+  }
+  
+  .teamTab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #006A71;
+    border-radius: 2px;
+  }
+  
+  /* Sections */
+  .teamPageSectionTitle {
+    color: #006A71;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .teamPageTextGroup {
+    background-color: #ffffff;
+    border-left: 6px solid #006A71;
+    padding: 16px 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .teamPageTextGroup p {
+    font-size: 1.05rem;
+    margin: 8px 0;
+    color: #333;
+  }
+  
+  .teamPageTextGroup strong {
+    color: #023047;
+    font-weight: 700;
+  }
+  
+  .teamPageText {
+    margin: 6px 0;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Tables */
+  .teamPageTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    table-layout: fixed; /* Ensures equal column widths */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .teamPageTable th,
+  .teamPageTable td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .teamPageTable th {
+    background-color: #006A71;
+    color: #ffffff;
+  }
+  
+  .teamPageTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .teamPageTable tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* List Styling */
+  .teamPageList {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+  }
+  
+  .teamPageList li {
+    background-color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+    color: #333;
+    font-weight: 500;
+  }
+  
+  /* Hide inactive tab content */
+  .teamTabContent {
+    display: none;
+  }
+  
+  .teamTabContent:first-of-type {
+    display: block;
+  }
+  
+  .expandableRow {
+    cursor: pointer;
+    background-color: #fefefe;
+    transition: background-color 0.2s ease;
+  }
+  
+  .expandableRow:hover {
+    background-color: #f3f3f3;
+  }
+  
+  .innerRedCardTable {
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .innerRedCardTable th {
+    background-color: #9ACBD0;
+  }
+  
+  /* ============ Match History Table Styles (New) ============ */
+  .matchHistoryTableContainer {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 90%;
+    margin: 20px auto;
+    padding: 15px;
+    overflow-x: auto;
+  }
+  
+  .matchHistoryTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .matchHistoryTable th,
+  .matchHistoryTable td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .matchHistoryTable th {
+    background-color: #006A71;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  .matchHistoryTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .matchHistoryTable tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .matchStatus {
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 4px 10px;
+    display: inline-block;
+    color: white;
+    font-size: 0.85rem;
+  }
+  
+  .status-FT {
+    background-color: #e74c3c;
+  }
+  
+  .tournamentCardList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Match details css */
+
+/* Match Overview */
+.matchDetailsContainer {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .matchTitle {
+    text-align: center;
+    color: #023047;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  
+  .matchSubTitle {
+    text-align: center;
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+  
+  .matchScoreboard {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  
+  /* Side Team Boxes */
+  .teamBox {
+    flex: 1;
+    background-color: #f4f9f9;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+  
+  .teamBox .teamName {
+    color: #006A71;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  
+  .teamBox .captain,
+  .teamBox .goalkeeper {
+    color: #333;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+  }
+  
+  /* Center Score Info */
+  .scoreBox {
+    flex: 1.2;
+    text-align: center;
+    background-color: #006A71;
+    color: #F2EFE7;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .scoreBox .matchScore {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .scoreBox .matchMeta {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+  
+  .sectionTitle {
+    color: #006A71;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  /* Split for goals/bookings/subs */
+  .goalSplit {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .goalList {
+    flex: 1;
+    list-style: none;
+    background-color: #f9f9f9;
+    border-left: 6px solid #006A71;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .goalList li {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1rem;
+  }
+  
+  .captainInfo {
+    font-size: 1rem;
+    padding: 12px 20px;
+    background-color: #f4f4f4;
+    border-left: 6px solid #006A71;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+  }
+  
+  .backButton {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #006A71;
+    color: #F2EFE7;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .backButton:hover {
+    background-color: #024d52;
+  }
+  .subSplit {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .subList {
+    flex: 1;
+    background-color: #f9f9f9;
+    border-left: 6px solid #006A71;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .subItem {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  
+  .subLeft {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  
+  .subRight {
+    justify-content: flex-end;
+    text-align: right;
+    border-left: none;
+    border-right: 6px solid #006A71;
+  }
+  
+  .playerIn {
+    color: #2ecc71;
+    font-weight: 600;
+  }
+  
+  .playerOut {
+    color: #e74c3c;
+    font-weight: 600;
+  }
+  
+  .subTime {
+    color: #023047;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+  
+  .inIcon, .outIcon {
+    margin-left: 6px;
+  }
+  .scoreBox.upcoming {
+    background-color: #2ecc71;
+    color: #023047;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  
+  .upcomingNote {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.05rem;
+    color: #555;
+    font-style: italic;
+  }
+  /* end of aziz work */
+
+
 /* Form Container Styles */
 .form-container {
     background-color: #006A71;
@@ -292,10 +1101,6 @@ body {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 1.8rem;
-}
-
-.form-group {
-    margin-bottom: 1.8rem;
 }
 
 .form-group label {
@@ -354,12 +1159,14 @@ body {
 .logo-preview {
     width: 100px;
     height: 100px;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
     margin: 1rem auto;
-    display: block;
+    display: none; /* initially hidden */
     border-radius: 50%;
     border: 3px solid #48A6A7;
-}
+  }
 
 /* Buttons */
 .form-actions {
@@ -458,12 +1265,6 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.logo-preview {
-    max-width: 100%;
-    max-height: 100%;
-    display: none;
 }
 
 input[type="file"] {
