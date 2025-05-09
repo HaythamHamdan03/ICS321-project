@@ -13,6 +13,12 @@
         <div class="auth-card">
             <h2>LOGIN</h2>
             
+            <% if (typeof error !== 'undefined') { %>
+                <div class="error-message">
+                    <%= error %>
+                </div>
+            <% } %>
+            
             <form action="/login" method="POST">
                 <div class="form-group">
                     <label for="username">username</label>

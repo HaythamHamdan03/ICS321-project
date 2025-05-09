@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Team Details - <%= team.name %></title>
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <div class="top-nav">
+    <a class="imageasLink" href="/"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
+    <span class="welcome">Welcome Haitham!</span>
+    <a href="/tournaments" class="nav-title">Tournaments</a>
+    <div class="nav-actions">
+      <button class="nav-button" id="logout-btn">Log Out</button>
+    </div>
+  </div>
+
+  <div class="detailsContainer">
+    <div class="teamPageContainer">
+      <h2 class="teamPageTitle"><%= team.name %></h2>
+
+      <!-- Tabs -->
+      <div class="teamTabs">
+        <span class="teamTab active" data-target="squadTab">Squad</span>
+        <span class="teamTab" data-target="tournamentsTab">Tournaments</span>
+        <span class="teamTab" data-target="statsTab">Team Stats</span>
+        <span class="teamTab" data-target="matchesTab">Matches</span>
+      </div>
+
+      <!-- Squad Tab -->
+      <div class="teamTabContent" id="squadTab">
+        <h3 class="teamPageSectionTitle">Team Overview</h3>
+        <div class="teamPageTextGroup">
+          <p><strong>Manager:</strong> <%= team.manager %></p>
+          <p><strong>Coach:</strong> <%= team.coach %></p>
+          <p><strong>Captain:</strong> <%= team.captain %></p>
+        </div>
+
+        <% Object.keys(team.players).forEach(role => { %>
+          <h3 class="teamPageSectionTitle"><%= role %></h3>
+          <table class="teamPageTable">
+            <thead>
+              <tr><th>Player</th><th>Jersey #</th><th>Role</th></tr>
+            </thead>
+            <tbody>
+              <% team.players[role].forEach(player => { %>
+                <tr><td><%= player.name %></td><td><%= player.jersey %></td><td><%= player.role %></td></tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% }) %>
+      </div>
+
+      <!-- Tournaments Tab -->
+      <div class="teamTabContent" id="tournamentsTab" style="display:none">
+        <h3 class="teamPageSectionTitle text-center">Participating Tournaments</h3>
+        <div class="tournamentCardList">
+          <% team.tournaments.forEach(title => { %>
+            <a href="/tournaments/1" class="tournamentCard">
+              <div class="teamIcon">
+                <img class="iconImage" src="https://cdn1.iconfinder.com/data/icons/science-and-education-2/44/trophy-512.png" alt="">
+              </div>
+              <div class="tournamentTitle"><%= title %></div>
+            </a>
+          <% }) %>
+        </div>
+      </div>
+
+      <!-- Stats Tab -->
+      <div class="teamTabContent" id="statsTab" style="display:none">
+        <% ['goals', 'assists', 'yellow'].forEach(type => { %>
+          <h3 class="teamPageSectionTitle">Top <%= type.charAt(0).toUpperCase() + type.slice(1) %></h3>
+          <table class="teamPageTable">
+            <thead>
+              <tr><th>Player</th><th>Position</th><th>Jersey #</th><th><%= type.charAt(0).toUpperCase() + type.slice(1) %></th></tr>
+            </thead>
+            <tbody>
+              <% team.stats[type].forEach(p => { %>
+                <tr><td><%= p.name %></td><td><%= p.pos %></td><td><%= p.jersey %></td><td><%= p.value %></td></tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% }) %>
+
+        <h3 class="teamPageSectionTitle">Players with Red Cards</h3>
+        <table class="teamPageTable expandableTable">
+          <thead>
+            <tr><th>Player</th><th>Position</th><th>Jersey #</th><th>Total Red Cards</th></tr>
+          </thead>
+          <tbody>
+            <% team.stats.red.forEach(p => { %>
+              <tr class="expandableRow" onclick="toggleRedCardDetails(this)">
+                <td><%= p.name %></td><td><%= p.pos %></td><td><%= p.jersey %></td><td><%= p.value %></td>
+              </tr>
+              <tr class="redCardDetailRow" style="display:none;">
+                <td colspan="4">
+                  <table class="teamPageTable innerRedCardTable">
+                    <thead><tr><th>Date</th><th>Opponent</th><th>Competition</th></tr></thead>
+                    <tbody>
+                      <% p.details.forEach(d => { %>
+                        <tr><td><%= d.date %></td><td><%= d.opp %></td><td><%= d.comp %></td></tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Matches Tab -->
+      <div class="teamTabContent" id="matchesTab" style="display:none">
+        <h3 class="teamPageSectionTitle">Match History</h3>
+        <div class="sortBar">
+          <select id="sortOrder">
+            <option value="asc">Sort by: Earliest to Latest</option>
+            <option value="desc">Sort by: Latest to Earliest</option>
+          </select>
+        </div>
+        <div class="fixturesContainer" id="fixturesContainer">
+          <% team.matches.forEach(match => { %>
+            <div class="fixtureGroup" data-date="<%= match.dateISO %>">
+              <h4 class="fixtureDate"><%= match.dateReadable %></h4>
+              <a href="/matches/<%= match.id %>" class="fixtureItem fullLayout">
+                <span class="fixtureTournament"><%= match.tournament %></span>
+                <span class="fixtureTeam"><%= match.team1 %></span>
+                <span class="fixtureScore"><%= match.score %></span>
+                <span class="fixtureTeam"><%= match.team2 %></span>
+                <span class="fixtureStatus"><span class="statusText <%= match.statusClass %>"><%= match.statusText %></span></span>
+              </a>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/js/teamDetails.js"></script>
+</body>
+</html>

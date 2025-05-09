@@ -25,7 +25,7 @@
 
       <% tournaments.forEach(tournament => { %>
         <div class="tournamentAdminItem">
-          <a class="tournamentCard" href="/tournaments/<%= tournament.id %>">
+          <a class="tournamentCard" href="/tournamnetDetails-admin/<%= tournament.id %>">
             <div class="teamIcon">
               <img class="iconImage" src="https://cdn1.iconfinder.com/data/icons/science-and-education-2/44/trophy-512.png" alt="">
             </div>
@@ -33,7 +33,7 @@
           </a>
           <div class="deleteAndEditButtons">
             <button class="deleteButton" onclick="deleteTournament('<%= tournament.id %>')">Delete</button>
-            <button class="editButton" onclick="editTournament('<%= tournament.id %>')">Edit</button>
+            <button class="editButton" onclick="editTournament('<%= tournament.id %>')">Add Team</button>
             
           </div>
         </div>

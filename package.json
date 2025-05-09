@@ -19,8 +19,9 @@
   },
   "homepage": "https://github.com/HaythamHamdan03/ICS321-project#readme",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "express-session": "^1.18.1"
   }
 }
-

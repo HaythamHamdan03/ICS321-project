@@ -11,9 +11,9 @@
     <div class="dashboard-container">
         <div class="top-nav">
             <a class="imageasLink" href="/"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
-            <div class="nav-title">Add Team to Tournament</div>
+            <div class="nav-title">Add New Team</div>
             <div class="nav-actions">
-                <button class="nav-button" onclick="window.location.href='/'">Back</button>
+                <button class="nav-button" onclick="window.history.back()">Back</button>
             </div>
         </div>
         
@@ -21,15 +21,7 @@
             <div class="form-card">
                 <h2 class="form-title">Team Details</h2>
                 <form id="teamForm" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="tournamentSelect">Select Tournament</label>
-                        <select id="tournamentSelect" name="tournamentSelect" required>
-                            <option value="">-- Select Tournament --</option>
-                            <option value="1">KFUPM Men's Football Tournament</option>
-                            <option value="2">KFUPM Women's Tournament</option>
-                            <option value="3">KFUPM Faculty Tournament</option>
-                        </select>
-                    </div>
+                    <input type="hidden" id="tournamentId" name="tournamentId" value="<%= tournamentId %>">
                     
                     <div class="form-group">
                         <label for="teamName">Team Name</label>
@@ -45,13 +37,18 @@
                                     <p>Click to upload team logo</p>
                                     <p class="file-name" id="fileName">No file selected</p>
                                 </div>
-                                <input type="file" id="teamLogo" name="teamLogo" accept="image/*">
+                                <input type="file" id="teamLogo" name="teamLogo" accept="image/*" required>
                             </label>
                             <div class="logo-preview-container">
                                 <img id="logoPreview" class="logo-preview">
                             </div>
                         </div>
-                    </div>   
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="managerName">Manager Name</label>
+                        <input type="text" id="managerName" name="managerName" required>
+                    </div>
                     
                     <div class="form-group">
                         <label for="captainName">Captain Name</label>
@@ -59,12 +56,56 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="teamMembers">Team Members (comma separated)</label>
-                        <textarea id="teamMembers" name="teamMembers" required></textarea>
+                        <label>Team Squad</label>
+                        <div class="squad-section">
+                            <div class="position-group">
+                                <h4>Goalkeepers</h4>
+                                <div id="goalkeepers-container" class="players-container">
+                                    <div class="player-input">
+                                        <input type="text" name="goalkeepers[]" placeholder="Player name" required>
+                                        <input type="text" name="goalkeeperJerseys[]" placeholder="Jersey number" required>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-player-btn" data-position="goalkeepers">+ Add Goalkeeper</button>
+                            </div>
+                            
+                            <div class="position-group">
+                                <h4>Defenders</h4>
+                                <div id="defenders-container" class="players-container">
+                                    <div class="player-input">
+                                        <input type="text" name="defenders[]" placeholder="Player name" required>
+                                        <input type="text" name="defenderJerseys[]" placeholder="Jersey number" required>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-player-btn" data-position="defenders">+ Add Defender</button>
+                            </div>
+                            
+                            <div class="position-group">
+                                <h4>Midfielders</h4>
+                                <div id="midfielders-container" class="players-container">
+                                    <div class="player-input">
+                                        <input type="text" name="midfielders[]" placeholder="Player name" required>
+                                        <input type="text" name="midfielderJerseys[]" placeholder="Jersey number" required>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-player-btn" data-position="midfielders">+ Add Midfielder</button>
+                            </div>
+                            
+                            <div class="position-group">
+                                <h4>Forwards</h4>
+                                <div id="forwards-container" class="players-container">
+                                    <div class="player-input">
+                                        <input type="text" name="forwards[]" placeholder="Player name" required>
+                                        <input type="text" name="forwardJerseys[]" placeholder="Jersey number" required>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-player-btn" data-position="forwards">+ Add Forward</button>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="form-actions">
-                        <button type="button" class="form-button secondary" onclick="window.location.href='/dashboard'">Cancel</button>
+                        <button type="button" class="form-button secondary" onclick="window.history.back()">Cancel</button>
                         <button type="submit" class="form-button primary">Add Team</button>
                     </div>
                 </form>

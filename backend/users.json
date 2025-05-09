@@ -1,0 +1,23 @@
+[
+  {
+    "username": "admin",
+    "password": "admin",
+    "fullname": "Admin",
+    "email": "admin@sportsphere.com",
+    "role": "admin"
+  },
+  {
+    "username": "haitham",
+    "password": "haitham2003",
+    "fullname": "Haitham",
+    "email": "haitham@example.com",
+    "role": "user"
+  },
+  {
+    "username": "abedalaziz",
+    "password": "abedalaziz2003",
+    "fullname": "abedalaziz",
+    "email": "abedalaziz@gmail.com",
+    "role": "user"
+  }
+]
