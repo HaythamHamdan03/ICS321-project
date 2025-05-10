@@ -5,6 +5,8 @@ import session from "express-session";
 import bodyParser from "body-parser";
 import fs from 'fs';
 import { promises as fsPromises } from 'fs';
+import pg from "pg";
+
 
 const app = express();
 const port = 3000;
@@ -28,6 +30,14 @@ app.use(session({
     cookie: { secure: false }
 }));
 
+const db = new pg.Client({
+    user: "azizhamad",
+    host: "localhost",
+    database: "azizhamad",
+    password: "Yaryar2003",
+    port: 5433,
+});
+db.connect();
 // User storage file path
 const usersFilePath = path.join(__dirname, 'users.json');
 
@@ -181,23 +191,29 @@ app.get("/add-team", (req, res) => {
     res.render("add-team", { user: req.session.user });
 });
 
-app.get("/tournaments", (req, res) => {
-    const tournaments = [
-        { id: 1, name: "KFUPM Men's Football Tournament" },
-        { id: 2, name: "KFUPM Women's Tournament" },
-        { id: 3, name: "KFUPM Faculty Tournament" }
-    ];
-    res.render("tournaments.ejs", { tournaments, user: req.session.user });
+app.get("/tournaments", async (req, res) => {
+    try {
+      const result = await db.query("SELECT tr_id AS id, tr_name AS name FROM tournament");
+      console.log("✅ Tournament data:", result.rows);
+      res.render("tournaments", { tournaments: result.rows, user: req.session.user });
+    } catch (err) {
+      console.error("❌ DB error:", err.message);
+      res.status(500).send("Database error");
+    }
+  });
+  
+  
+
+app.get('/admintournaments', async (req, res) => {
+    try {
+        const result = await db.query("SELECT tr_id AS id, tr_name AS name FROM tournament ORDER BY tr_id");
+        res.render('adminTournaments', { tournaments: result.rows, user: req.session.user });
+    } catch (err) {
+        console.error("❌ DB error (adminTournaments):", err.message);
+        res.status(500).send("Database error");
+    }
 });
 
-app.get('/admintournaments', (req, res) => {
-    const tournaments = [
-        { id: 1, name: "KFUPM Men's Football Tournament" },
-        { id: 2, name: "KFUPM Women's Tournament" },
-        { id: 3, name: "KFUPM Faculty Tournament" }
-    ];
-    res.render('adminTournaments', { tournaments, user: req.session.user });
-});
 
 // Tournament Routes
 app.delete('/tournaments/:id', (req, res) => {
@@ -260,6 +276,7 @@ app.get('/tournaments/:id', (req, res) => {
     };
     res.render('tournamentDetails', { tournament: dummyTournament, user: req.session.user });
 });
+
 
 // Admin Tournament Details
 app.get('/tournamnetDetails-admin/:id', (req, res) => {
