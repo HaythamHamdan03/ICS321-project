@@ -631,7 +631,7 @@ app.get('/admintournaments/:id/create-match', async (req, res) => {
   
     try {
       const maxMatch = await db.query('SELECT MAX(match_no) as max FROM MATCH_PLAYED');
-      const newMatchNo = (maxMatch.rows[0].max || 0) + 1;
+      const newMatchNo = Number((maxMatch.rows[0].max || 0)) + 1;
   
       // 1. Insert match
       await db.query(`

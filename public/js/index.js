@@ -51,68 +51,68 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Function to render matches
-    async function renderMatches(date) {
-        try {
-            // Fetch matches data from API
-            const response = await fetch(`/api/matches/${date}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch matches');
-            }
-            
-            const matches = await response.json();
-            
-            // Clear existing matches
-            matchesContainer.innerHTML = '';
-            
-            const matchContainer = document.createElement('div');
-            matchContainer.className = 'match-container';
-            
-            if (matches && matches.length > 0) {
-                matches.forEach(match => {
-                    // Determine if match is completed or upcoming
-                    const isCompleted = match.results !== null && match.results !== '';
-                    
-                    // Create match card
-                    const matchCard = document.createElement('div');
-                    matchCard.className = `match-card ${isCompleted ? 'completed' : ''}`;
-                    matchCard.setAttribute('data-match-id', match.match_no);
-                    
-                    // Create match card content
-                    matchCard.innerHTML = `
-                        <div class="match-header">${match.tournament_name}</div>
-                        <div class="match-content">
-                            <div class="team">
-                                <img src="/images/teamLogo.png" alt="${match.team1_name}" class="team-logo">
-                                <div class="team-name">${match.team1_name}</div>
-                            </div>
-                            <div class="match-center">
-                                ${isCompleted ? 
-                                    `<div class="match-score">${match.goal_score}</div>` : 
-                                    `<div class="match-time">10:00 PM</div>`}
-                                <div class="match-status">${isCompleted ? 'Completed' : 'Upcoming'}</div>
-                            </div>
-                            <div class="team">
-                                <img src="/images/teamLogo.png" alt="${match.team2_name}" class="team-logo">
-                                <div class="team-name">${match.team2_name}</div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Add click event listener to navigate to match details
-                    matchCard.addEventListener('click', () => {
-                        window.location.href = `/matches-admin/${match.match_no}`;
-                    });
-                    
-                    matchContainer.appendChild(matchCard);
-                });
-            } else {
-                matchContainer.innerHTML = '<div class="no-matches">No matches scheduled for this date.</div>';
-            }
-            
-            matchesContainer.appendChild(matchContainer);
-        } catch (error) {
-            console.error('Error rendering matches:', error);
-            matchesContainer.innerHTML = '<div class="no-matches">Error loading matches. Please try again later.</div>';
+async function renderMatches(date) {
+    try {
+        // Fetch matches data from API
+        const response = await fetch(`/api/matches/${date}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch matches');
         }
+        
+        const matches = await response.json();
+        
+        // Clear existing matches
+        matchesContainer.innerHTML = '';
+        
+        const matchContainer = document.createElement('div');
+        matchContainer.className = 'match-container';
+        
+        if (matches && matches.length > 0) {
+            matches.forEach(match => {
+                // Determine if match is completed or upcoming
+                const isCompleted = match.results !== null && match.results !== '';
+                
+                // Create match card
+                const matchCard = document.createElement('div');
+                matchCard.className = `match-card ${isCompleted ? 'completed' : ''}`;
+                matchCard.setAttribute('data-match-id', match.match_no);
+                
+                // Create match card content
+                matchCard.innerHTML = `
+                    <div class="match-header">${match.tournament_name}</div>
+                    <div class="match-content">
+                        <div class="team">
+                            <img src="/images/teamLogo.png" alt="${match.team1_name}" class="team-logo">
+                            <div class="team-name">${match.team1_name}</div>
+                        </div>
+                        <div class="match-center">
+                            ${isCompleted ? 
+                                `<div class="match-score">${match.goal_score}</div>` : 
+                                `<div class="match-time">10:00 PM</div>`}
+                            <div class="match-status">${isCompleted ? 'Completed' : 'Upcoming'}</div>
+                        </div>
+                        <div class="team">
+                            <img src="/images/teamLogo.png" alt="${match.team2_name}" class="team-logo">
+                            <div class="team-name">${match.team2_name}</div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click event listener to navigate to match details
+                matchCard.addEventListener('click', () => {
+                    window.location.href = `/matches-admin/${match.match_no}`;
+                });
+                
+                matchContainer.appendChild(matchCard);
+            });
+        } else {
+            matchContainer.innerHTML = '<div class="no-matches">No matches scheduled for this date.</div>';
+        }
+        
+        matchesContainer.appendChild(matchContainer);
+    } catch (error) {
+        console.error('Error rendering matches:', error);
+        matchesContainer.innerHTML = '<div class="no-matches">Error loading matches. Please try again later.</div>';
     }
+}
 });
