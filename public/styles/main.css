@@ -1404,3 +1404,39 @@ input[type="file"] {
     border-radius: 3px;
     font-size: 12px;
 }
+
+.emptyRow {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    background-color: #f9f9f9;
+  }
+  
+  .date-scroll-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    background-color: #cbe7eb;
+    border-bottom: 1px solid #aaa;
+  }
+  .date-list {
+    display: inline-flex;
+    gap: 8px;
+  }
+  .date-item {
+    flex: 0 0 auto;
+    padding: 10px 14px;
+    background-color: #e0f0f3;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+  .date-item.active {
+    background-color: #007b8a;
+    color: #fff;
+  }
+  .date-item:hover {
+    background-color: #92d1dc;
+  }
+  

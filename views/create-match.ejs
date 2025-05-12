@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Create Match</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body class="form-page">
+  <div class="dashboard-container">
+    <div class="top-nav">
+      <a class="imageasLink" href="/"><img src="/images/logo.png" alt="Logo" class="logo" /></a>
+      <div class="nav-title">Create Match</div>
+      <div class="nav-actions">
+        <button class="nav-button" onclick="window.history.back()">Back</button>
+      </div>
+    </div>
+
+    <div class="form-container">
+      <div class="form-card">
+        <h2 class="form-title">Match Details</h2>
+        <form action="/admintournaments/<%= tournamentId %>/create-match" method="POST">
+          <div class="form-group">
+            <label for="play_date">Match Date</label>
+            <input type="date" name="play_date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="venue_id">Venue</label>
+            <select name="venue_id" required>
+              <% venues.forEach(venue => { %>
+                <option value="<%= venue.venue_id %>"><%= venue.venue_name %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="audience">Audience</label>
+            <input type="number" name="audience" required min="0">
+          </div>
+
+          <div class="form-group">
+            <label for="player_of_match">Player of the Match</label>
+            <select name="player_of_match" id="player_of_match" required></select>
+          </div>
+
+          <div class="form-group">
+            <label for="goal_score">Goal Score (e.g. 2-1)</label>
+            <input type="text" name="goal_score" required>
+          </div>
+
+          <div class="form-group">
+            <label for="results">Match Result</label>
+            <select name="results" required>
+              <option value="WIN">WIN</option>
+              <option value="DRAW">DRAW</option>
+              <option value="LOSS">LOSS</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="decided_by">Decided By</label>
+            <select name="decided_by" required>
+              <option value="N">Normal</option>
+              <option value="P">Penalties</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="stop1_sec">First Half Stop Time (sec)</label>
+            <input type="number" name="stop1_sec" required>
+          </div>
+
+          <div class="form-group">
+            <label for="stop2_sec">Second Half Stop Time (sec)</label>
+            <input type="number" name="stop2_sec" required>
+          </div>
+
+          <div class="form-group">
+            <label>Team 1</label>
+            <select name="team1_id" id="team1" required onchange="handleTeamChange(); loadPlayers(this.value, 'captain1_id', 'player_of_match')">
+              <% teams.forEach(team => { %>
+                <option value="<%= team.team_id %>"><%= team.team_name %></option>
+              <% }) %>
+            </select>
+
+            <label>Captain</label>
+            <select name="captain1_id" id="captain1_id" required></select>
+          </div>
+
+          <div class="form-group">
+            <label>Team 2</label>
+            <select name="team2_id" id="team2" required onchange="handleTeamChange(); loadPlayers(this.value, 'captain2_id', 'player_of_match')">
+                <% teams.forEach(team => { %>
+                <option value="<%= team.team_id %>"><%= team.team_name %></option>
+              <% }) %>
+            </select>
+
+            <label>Captain</label>
+            <select name="captain2_id" id="captain2_id" required></select>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="form-button primary">Create Match</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function loadPlayers(teamId, dropdownId, matchPlayerSelectId = null) {
+      const res = await fetch(`/api/players/${teamId}`);
+      const players = await res.json();
+      const dropdown = document.getElementById(dropdownId);
+      dropdown.innerHTML = "";
+      players.forEach(p => {
+        const opt = document.createElement("option");
+        opt.value = p.player_id;
+        opt.textContent = p.name;
+        dropdown.appendChild(opt);
+      });
+  
+      // Optional: Populate Player of Match dropdown too
+      if (matchPlayerSelectId) {
+        const matchDropdown = document.getElementById(matchPlayerSelectId);
+        players.forEach(p => {
+          const opt = document.createElement("option");
+          opt.value = p.player_id;
+          opt.textContent = p.name;
+          matchDropdown.appendChild(opt);
+        });
+      }
+    }
+  
+    function handleTeamChange() {
+      const team1 = document.getElementById('team1');
+      const team2 = document.getElementById('team2');
+  
+      Array.from(team2.options).forEach(opt => {
+        opt.disabled = opt.value === team1.value && opt.value !== "";
+      });
+  
+      Array.from(team1.options).forEach(opt => {
+        opt.disabled = opt.value === team2.value && opt.value !== "";
+      });
+    }
+  </script>
+  
+  
+</body>
+</html>

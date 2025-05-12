@@ -1,22 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
     const tournamentForm = document.getElementById('tournamentForm');
-    
-    tournamentForm.addEventListener('submit', function(e) {
+
+    tournamentForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
+
         const tournamentData = {
             name: document.getElementById('tournamentName').value,
-            sportType: document.getElementById('sportType').value,
             startDate: document.getElementById('startDate').value,
-            endDate: document.getElementById('endDate').value,
-            location: document.getElementById('location').value
+            endDate: document.getElementById('endDate').value
         };
-        
-        // Here you would typically send to your backend
-        console.log('Tournament Data:', tournamentData);
-        alert('Tournament created successfully!');
-        
-        // Redirect back to dashboard
-        window.location.href = '/dashboard';
+
+        try {
+            const response = await fetch('/add-tournament', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(tournamentData)
+            });
+
+            if (response.ok) {
+                alert('Tournament created successfully!');
+                window.location.href = '/';
+            } else {
+                const error = await response.text();
+                alert('Failed to create tournament: ' + error);
+            }
+        } catch (err) {
+            console.error('Request error:', err);
+            alert('Something went wrong');
+        }
     });
 });

@@ -1,135 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <title>Tournament Details</title>
-    <link rel="stylesheet" href="/styles/main.css" />
+  <meta charset="UTF-8" />
+  <title>Tournament Details</title>
+  <link rel="stylesheet" href="/styles/main.css" />
 </head>
 
 <body>
   <div class="top-nav">
     <a class="imageasLink" href="/"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
-    <span class="welcome">Welcome Haitham!</span>
-    <a href="/tournaments" class="nav-title">Tournaments</a>
+    <span class="welcome">Welcome <%= user.fullname %>!</span>
+    <a href="/admintournaments" class="nav-title">Tournaments</a>
     <div class="nav-actions">
       <button class="nav-button" id="logout-btn">Log Out</button>
     </div>
   </div>
-  
-    <div class="detailsContainer">
-        <div class="tournamentPageContainer">
-          <h2 class="detailsTitle"><%= tournament.name %></h2>
 
-            <div class="tabs">
-                <span class="tab active">Table</span>
-                <span class="tab">Fixtures</span>
-                <span class="tab">Stats</span>
-            </div>
+  <div class="detailsContainer">
+    <div class="tournamentPageContainer">
+      <h2 class="detailsTitle"><%= tournamentInfo.tr_name %></h2>
 
-            <!-- Table Section -->
-            <table class="teamTable" id="tableSection">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Team</th>
-                        <th>PL</th>
-                        <th>W</th>
-                        <th>D</th>
-                        <th>L</th>
-                        <th>PTS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% tournament.standings.forEach((team, index) => { %>
-                        <tr>
-                            <td><%= index + 1 %></td>
-                            <td><a href="/teamsDetails/<%= team.id %>"><%= team.name %></a></td>
-                            <td><%= team.pl %></td>
-                            <td><%= team.w %></td>
-                            <td><%= team.d %></td>
-                            <td><%= team.l %></td>
-                            <td><%= team.pts %></td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
+      <div class="tabs">
+        <span class="tab active">Table</span>
+        <span class="tab">Fixtures</span>
+        <span class="tab">Stats</span>
+      </div>
 
-            <!-- Fixtures Section -->
-            <div id="fixturesSection" class="fixturesContainer">
-                <div class="sortBar">
-                  <select id="sortOrder">
-                    <option value="asc">Sort by: Earliest to Latest</option>
-                    <option value="desc">Sort by: Latest to Earliest</option>
-                  </select>
-                </div>
-                <% tournament.fixtures.forEach(group => { %>
-                  <div class="fixtureGroup" data-date="<%= group.dateISO %>">
-                    <h4 class="fixtureDate"><%= group.dateReadable %></h4>
-                    <% group.matches.forEach(match => { %>
-                      <a href="/matches/<%= match.id %>" class="fixtureItem compactLayout">
-                        <span class="fixtureTeam"><%= match.team1 %></span>
-                        <span class="fixtureScore"><%= match.score %></span>
-                        <span class="fixtureTeam"><%= match.team2 %></span>
-                        <span class="fixtureStatus"><span class="statusText <%= match.statusClass %>"><%= match.statusText %></span></span>
-                      </a>
-                    <% }) %>
-                  </div>
-                <% }) %>
-              </div>
+      <!-- Table Section -->
+      <table class="teamTable" id="tableSection">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Team</th>
+            <th>PL</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+            <th>PTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% standings.forEach(row => { %>
+            <tr>
+              <td><%= row["#"] %></td>
+              <td><a href="/teams-admin/<%= row.team_id %>"><%= row.Team %></a></td>
+              <td><%= row.PL %></td>
+              <td><%= row.W %></td>
+              <td><%= row.D %></td>
+              <td><%= row.L %></td>
+              <td><%= row.PTS %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
 
-            <!-- Stats Section -->
-            <div id="statsSection" class="statsContainer" style="display: none;">
-                <div class="innerTabs">
-                    <span class="innerTab active" data-target="scorersTable">Top Scorers</span>
-                    <span class="innerTab" data-target="assistsTable">Top Assists</span>
-                </div>
-
-                <table class="statsTable" id="scorersTable">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Player</th>
-                            <th>Team</th>
-                            <th>Goals</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% tournament.topScorers.forEach((player, idx) => { %>
-                            <tr>
-                                <td><%= idx + 1 %></td>
-                                <td><%= player.name %></td>
-                                <td><a href="/teams/<%= player.teamId %>"><%= player.team %></a></td>
-                                <td><%= player.goals %></td>
-                            </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-
-                <table class="statsTable" id="assistsTable" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Player</th>
-                            <th>Team</th>
-                            <th>Assists</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% tournament.topAssists.forEach((player, idx) => { %>
-                            <tr>
-                                <td><%= idx + 1 %></td>
-                                <td><%= player.name %></td>
-                                <td><a href="/teams/<%= player.teamId %>"><%= player.team %></a></td>
-                                <td><%= player.assists %></td>
-                            </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            </div>
+      <!-- Fixtures Section -->
+      <div id="fixturesSection" class="fixturesContainer">
+        <div style="text-align: right; margin-bottom: 10px;">
+            <button class="form-button primary" onclick="location.href='/admintournaments/<%= tournamentInfo.tr_id %>/create-match'">
+              + Create Match
+            </button>
+          </div>
+        <div class="sortBar">
+          <select id="sortOrder">
+            <option value="asc">Sort by: Earliest to Latest</option>
+            <option value="desc">Sort by: Latest to Earliest</option>
+          </select>
         </div>
-    </div>
-    <script src="/js/tournamentDetails.js"></script>
-</body>
+        <% fixtures.forEach(match => { %>
+          <div class="fixtureGroup" data-date="<%= match.date.toISOString().split('T')[0] %>">
+            <h4 class="fixtureDate"><%= match.date.toDateString() %></h4>
+            <a href="/matches-admin/<%= match.id %>" class="fixtureItem compactLayout">
+              <span class="fixtureTeam"><%= match.team1 %></span>
+              <span class="fixtureScore"><%= match.score || '-' %></span>
+              <span class="fixtureTeam"><%= match.team2 %></span>
+              <span class="fixtureStatus">
+                <span class="statusText <%= match.status === 'FT' ? 'finished' : 'upcoming' %>">
+                  <%= match.status %>
+                </span>
+              </span>
+            </a>
+          </div>
+        <% }) %>
+      </div>
 
+      <!-- Stats Section -->
+      <div id="statsSection" class="statsContainer" style="display: none;">
+        <div class="innerTabs">
+          <span class="innerTab active" data-target="scorersTable">Top Scorers</span>
+          <span class="innerTab" data-target="assistsTable">Top Assists</span>
+        </div>
+
+        <table class="statsTable" id="scorersTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Team</th>
+              <th>Goals</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% topScorers.forEach(player => { %>
+              <tr>
+                <td><%= player["#"] %></td>
+                <td><%= player.player %></td>
+                <td><a href="/teams-admin/<%= player.team_id %>"><%= player.team %></a></td>
+                <td><%= player.goals %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+
+        <table class="statsTable" id="assistsTable" style="display: none;">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Team</th>
+              <th>Assists</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% topAssists.forEach(player => { %>
+              <tr>
+                <td><%= player["#"] %></td>
+                <td><%= player.player %></td>
+                <td><a href="/teams-admin/<%= player.team_id %>"><%= player.team %></a></td>
+                <td><%= player.assists %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/tournamentDetails.js"></script>
+  <script src="/js/navbuttons.js"></script>
+</body>
 </html>

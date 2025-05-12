@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Team - Sport Sphere</title>
+    <title>Add Team to Tournament - Sport Sphere</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -11,7 +11,7 @@
     <div class="dashboard-container">
         <div class="top-nav">
             <a class="imageasLink" href="/"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
-            <div class="nav-title">Add New Team</div>
+            <div class="nav-title">Add New Team to Tournament</div>
             <div class="nav-actions">
                 <button class="nav-button" onclick="window.history.back()">Back</button>
             </div>
@@ -20,7 +20,7 @@
         <div class="form-container">
             <div class="form-card">
                 <h2 class="form-title">Team Details</h2>
-                <form id="teamForm" enctype="multipart/form-data">
+                <form id="teamForm">
                     <input type="hidden" id="tournamentId" name="tournamentId" value="<%= tournamentId %>">
                     
                     <div class="form-group">
@@ -29,20 +29,13 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>Team Logo</label>
-                        <div class="file-upload-container">
-                            <label class="file-upload-label" for="teamLogo">
-                                <div class="file-upload-box">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <p>Click to upload team logo</p>
-                                    <p class="file-name" id="fileName">No file selected</p>
-                                </div>
-                                <input type="file" id="teamLogo" name="teamLogo" accept="image/*" required>
-                            </label>
-                            <div class="logo-preview-container">
-                                <img id="logoPreview" class="logo-preview">
-                            </div>
-                        </div>
+                        <label for="teamGroup">Team Group</label>
+                        <select id="teamGroup" name="teamGroup" required>
+                            <option value="A">Group A</option>
+                            <option value="B">Group B</option>
+                            <option value="C">Group C</option>
+                            <option value="D">Group D</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">

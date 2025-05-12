@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const dateList = document.getElementById('date-list');
     const logoutBtn = document.getElementById('logout-btn');
     const addTournamentBtn = document.getElementById('add-tournament-btn');
-    const userManagementBtn = document.getElementById('user-management-btn');
-
 
     // Scroll active date into view
     const activeDate = document.querySelector('.date-item.active');
@@ -45,9 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addTournamentBtn.addEventListener('click', () => {
         window.location.href = '/add-tournament';
-    });
-    userManagementBtn.addEventListener('click', () => {
-        window.location.href = "/admin/users" ;
     });
 
     // Function to render matches
@@ -100,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Add click event listener to navigate to match details
                     matchCard.addEventListener('click', () => {
-                        window.location.href = `/matches-admin/${match.match_no}`;
+                        window.location.href = `/matches/${match.match_no}`;
                     });
                     
                     matchContainer.appendChild(matchCard);

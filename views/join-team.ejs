@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sport Sphere - Join a Team</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <style>
+    /* Styles for the form */
+    .form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 900px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+    .form-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    
+    .form-title {
+      margin-top: 0;
+      color: #333;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    
+    .form-group select,
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .form-actions {
+      margin-top: 20px;
+    }
+    
+    .form-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    
+    .primary {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .primary:hover {
+      background-color: #45a049;
+    }
+    
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+    }
+    
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+    
+    .status-pending {
+      color: #f39c12;
+      font-weight: bold;
+    }
+    
+    .status-approved {
+      color: #2ecc71;
+      font-weight: bold;
+    }
+    
+    .status-rejected {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    
+    /* Form validation styles */
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    
+    /* Loading indicator */
+    .loader {
+      border: 3px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 3px solid #4CAF50;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+      display: inline-block;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Notification styles */
+    .notification {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .notification-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .notification-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .page-wrapper {
+  background-color: #00796B; /* or whatever dark green you want */
+  min-height: 100vh;
+  padding: 30px 0;
+}
+
+  </style>
+</head>
+<body class="form-page">
+  <div class="dashboard-container">
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+      <a class="imageasLink" href="/dashboard"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
+      <span class="welcome">Welcome <%= user.fullname %>!</span>
+      <a href="/tournaments" class="nav-title">Tournaments</a>
+      <div class="nav-actions">
+        <a href="/join-team" class="nav-button">Join a Team</a>
+        <button class="nav-button" id="logout-btn">Log Out</button>
+      </div>
+    </div>
+
+    <div class="form-container">
+      <!-- Notifications -->
+      <div id="notification" class="notification"></div>
+      
+      <!-- Request Form -->
+      <div class="form-card">
+        <h2 class="form-title">Request to Join a Team</h2>
+        <form id="join-team-form">
+          <input type="hidden" name="player_name" id="player_name" value="<%= user.fullname %>">
+
+          <div class="form-group">
+            <label for="tournament">Tournament</label>
+            <select name="tr_id" id="tournament" required>
+              <option value="" disabled selected>Select Tournament</option>
+              <% tournaments.forEach(t => { %>
+                <option value="<%= t.tr_id %>"><%= t.tr_name %></option>
+              <% }) %>
+            </select>
+            <div id="tournament-error" class="error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="team">Team</label>
+            <select name="team_id" id="team" required disabled>
+              <option value="" disabled selected>Select Tournament First</option>
+            </select>
+            <div id="team-error" class="error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="jersey_no">Jersey Number</label>
+            <input type="number" name="jersey_no" id="jersey_no" min="1" max="99" required>
+            <div id="jersey-error" class="error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="position">Position</label>
+            <select name="position_to_play" id="position" required>
+              <option value="" disabled selected>Select Position</option>
+              <option value="GK">Goalkeeper (GK)</option>
+              <option value="DF">Defender (DF)</option>
+              <option value="MF">Midfielder (MF)</option>
+              <option value="FD">Forward (FD)</option>
+            </select>
+            <div id="position-error" class="error"></div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="submit-btn" class="form-button primary">
+              Send Request
+              <span id="loader" class="loader" style="display: none;"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Existing Requests Table -->
+      <div class="form-card">
+        <h3>Your Join Requests</h3>
+        <% if (requests.length === 0) { %>
+          <p>You haven't sent any team join requests yet.</p>
+        <% } else { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Tournament</th>
+                <th>Team</th>
+                <th>Jersey #</th>
+                <th>Position</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="requests-table">
+              <% requests.forEach(r => { %>
+                <tr>
+                  <td><%= r.tr_name %></td>
+                  <td><%= r.team_name %></td>
+                  <td><%= r.jersey_no %></td>
+                  <td>
+                    <% if (r.position_to_play === 'GK') { %>Goalkeeper<% } %>
+                    <% if (r.position_to_play === 'DF') { %>Defender<% } %>
+                    <% if (r.position_to_play === 'MF') { %>Midfielder<% } %>
+                    <% if (r.position_to_play === 'FD') { %>Forward<% } %>
+                  </td>
+                  <td class="status-<%= r.request_status.toLowerCase() %>">
+                    <%= r.request_status %>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // DOM Elements
+      const tournamentSelect = document.getElementById('tournament');
+      const teamSelect = document.getElementById('team');
+      const joinForm = document.getElementById('join-team-form');
+      const notification = document.getElementById('notification');
+      const loader = document.getElementById('loader');
+      const logoutBtn = document.getElementById('logout-btn');
+      
+      // Event Listeners
+      tournamentSelect.addEventListener('change', loadTeams);
+      joinForm.addEventListener('submit', handleSubmit);
+      
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          fetch('/logout', {
+            method: 'POST',
+            credentials: 'same-origin'
+          }).then(() => {
+            window.location.href = '/login';
+          });
+        });
+      }
+      
+      // Functions
+      async function loadTeams() {
+        const tournamentId = tournamentSelect.value;
+        
+        if (!tournamentId) {
+          teamSelect.innerHTML = '<option value="" disabled selected>Select Tournament First</option>';
+          teamSelect.disabled = true;
+          return;
+        }
+        
+        teamSelect.disabled = true;
+        teamSelect.innerHTML = '<option value="" disabled selected>Loading teams...</option>';
+        
+        try {
+          const response = await fetch(`/api/teams/${tournamentId}`);
+          
+          if (!response.ok) {
+            throw new Error('Failed to fetch teams');
+          }
+          
+          const teams = await response.json();
+          
+          teamSelect.innerHTML = '<option value="" disabled selected>Select Team</option>';
+          
+          if (teams.length === 0) {
+            teamSelect.innerHTML = '<option value="" disabled selected>No teams available</option>';
+          } else {
+            teams.forEach(team => {
+              const option = document.createElement('option');
+              option.value = team.team_id;
+              option.textContent = team.team_name;
+              teamSelect.appendChild(option);
+            });
+          }
+        } catch (error) {
+          showNotification('Failed to load teams. Please try again.', 'error');
+          teamSelect.innerHTML = '<option value="" disabled selected>Error loading teams</option>';
+        } finally {
+          teamSelect.disabled = false;
+        }
+      }
+      
+      async function handleSubmit(event) {
+        event.preventDefault();
+        
+        // Reset errors
+        document.querySelectorAll('.error').forEach(el => el.textContent = '');
+        
+        // Form validation
+        let hasErrors = false;
+        
+        if (!tournamentSelect.value) {
+          document.getElementById('tournament-error').textContent = 'Please select a tournament';
+          hasErrors = true;
+        }
+        
+        if (!teamSelect.value) {
+          document.getElementById('team-error').textContent = 'Please select a team';
+          hasErrors = true;
+        }
+        
+        const jerseyInput = document.getElementById('jersey_no');
+        if (!jerseyInput.value) {
+          document.getElementById('jersey-error').textContent = 'Please enter a jersey number';
+          hasErrors = true;
+        } else if (parseInt(jerseyInput.value) < 1 || parseInt(jerseyInput.value) > 99) {
+          document.getElementById('jersey-error').textContent = 'Jersey number must be between 1 and 99';
+          hasErrors = true;
+        }
+        
+        if (!document.getElementById('position').value) {
+          document.getElementById('position-error').textContent = 'Please select a position';
+          hasErrors = true;
+        }
+        
+        if (hasErrors) {
+          return;
+        }
+        
+        // Show loader
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = true;
+        loader.style.display = 'inline-block';
+        
+        // Prepare form data
+        const formData = new FormData(joinForm);
+        const data = {
+          tr_id: formData.get('tr_id'),
+          team_id: formData.get('team_id'),
+          player_name: formData.get('player_name'),
+          jersey_no: formData.get('jersey_no'),
+          position_to_play: formData.get('position_to_play')
+        };
+        
+        try {
+          const response = await fetch('/join-team', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+          
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to submit request');
+          }
+          
+          // Success
+          showNotification('Your join request has been sent successfully!', 'success');
+          
+          // Refresh the page to show the new request
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+          
+        } catch (error) {
+          showNotification(error.message || 'Failed to submit request. Please try again.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          loader.style.display = 'none';
+        }
+      }
+      
+      function showNotification(message, type) {
+        notification.textContent = message;
+        notification.className = 'notification';
+        notification.classList.add(`notification-${type}`);
+        notification.style.display = 'block';
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          notification.style.display = 'none';
+        }, 5000);
+      }
+    });
+  </script>
+</body>
+</html>

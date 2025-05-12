@@ -8,15 +8,18 @@ function deleteTournament(id) {
 }
 
 function confirmDelete() {
-  fetch(`/tournaments/${selectedId}`, {
+  if (!selectedId) return;
+
+  fetch(`/admintournaments/${selectedId}`, {
     method: 'DELETE'
   })
-    .then(response => {
-      if (response.ok) {
+    .then(response => response.json())
+    .then(data => {
+      if (data.redirect) {
+        window.location.href = data.redirect;
+      } else {
         alert("Tournament deleted.");
         window.location.reload();
-      } else {
-        alert("Failed to delete tournament.");
       }
     })
     .catch(err => alert("Error: " + err))
@@ -29,5 +32,11 @@ function closeModal() {
 }
 
 function editTournament(id) {
-  window.location.href = `/tournaments/${id}/edit`;
+  // Changed to redirect to add-team page instead of edit page
+  window.location.href = `/admintournaments/${id}/add-team`;
+}
+
+// Function to add team to tournament
+function addTeamToTournament(id) {
+  window.location.href = `/admintournaments/${id}/add-team`;
 }

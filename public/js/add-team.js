@@ -1,37 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // File upload handling
-    const logoInput = document.getElementById('teamLogo');
-    const logoPreview = document.getElementById('logoPreview');
-    const fileNameDisplay = document.getElementById('fileName');
-
-    logoInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        
-        if (file) {
-            fileNameDisplay.textContent = file.name;
-            
-            if (!file.type.match('image.*')) {
-                alert('Please select an image file (JPEG, PNG, etc.)');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                logoPreview.src = event.target.result;
-                logoPreview.style.display = 'block';
-                
-                logoPreview.onload = function() {
-                    this.style.width = this.width > this.height ? 'auto' : '100%';
-                    this.style.height = this.width > this.height ? '100%' : 'auto';
-                };
-            };
-            reader.readAsDataURL(file);
-        } else {
-            fileNameDisplay.textContent = 'No file selected';
-            logoPreview.style.display = 'none';
-        }
-    });
-
     // Player addition functionality
     document.querySelectorAll('.add-player-btn').forEach(button => {
         button.addEventListener('click', function() {
@@ -60,18 +27,53 @@ document.addEventListener('DOMContentLoaded', function() {
     teamForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        if (!logoInput.files[0]) {
-            alert('Please select a team logo');
-            return;
-        }
-
         const formData = new FormData(teamForm);
+        const tournamentId = formData.get('tournamentId');
         
-        // Here you would typically send to your backend
-        console.log('Form data:', Object.fromEntries(formData));
+        // Convert FormData to a plain object for JSON submission
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+            // Handle array inputs like goalkeepers[]
+            if (key.endsWith('[]')) {
+                const cleanKey = key.slice(0, -2);
+                if (!formDataObj[cleanKey]) {
+                    formDataObj[cleanKey] = [];
+                }
+                formDataObj[cleanKey].push(value);
+            } else {
+                formDataObj[key] = value;
+            }
+        });
         
-        // Simulate successful submission
-        alert('Team added successfully!');
-        window.location.href = `/tournaments/${formData.get('tournamentId')}`;
+        // Send the data to the server
+        fetch(`/admintournaments/${tournamentId}/add-team`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formDataObj)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Server error: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert('Team added successfully!');
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    window.location.href = `/admintournaments`;
+                }
+            } else {
+                alert('Error: ' + (data.error || 'Unknown error'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error submitting form: ' + error.message);
+        });
     });
 });

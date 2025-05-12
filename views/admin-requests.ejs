@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - Join Requests</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+  <style>
+    .page-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .requests-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+      font-size: 14px;
+    }
+
+    .btn-approve {
+      background-color: #4CAF50;
+    }
+
+    .btn-reject {
+      background-color: #e74c3c;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="top-nav">
+      <a class="imageasLink" href="/"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
+      <span class="welcome">Welcome <%= user.fullname %>!</span>
+      <a href="/admintournaments" class="nav-title">Tournaments</a>
+      <div class="nav-actions">
+        <a href="/admin-requests" class="nav-button">Join Requests</a>
+        <button class="nav-button" id="logout-btn">Log Out</button>
+      </div>
+    </div>
+
+    <div class="page-container">
+      <h2>Pending Join Requests</h2>
+      <% if (requests.length === 0) { %>
+        <p>No pending requests at the moment.</p>
+      <% } else { %>
+        <table class="requests-table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Jersey #</th>
+              <th>Position</th>
+              <th>Tournament</th>
+              <th>Team</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% requests.forEach(req => { %>
+              <tr>
+                <td><%= req.player_name %></td>
+                <td><%= req.jersey_no %></td>
+                <td>
+                  <% if (req.position_to_play === 'GK') { %>Goalkeeper<% } %>
+                  <% if (req.position_to_play === 'DF') { %>Defender<% } %>
+                  <% if (req.position_to_play === 'MF') { %>Midfielder<% } %>
+                  <% if (req.position_to_play === 'FD') { %>Forward<% } %>
+                </td>
+                <td><%= req.tr_name %></td>
+                <td><%= req.team_name %></td>
+                <td>
+                  <form action="/admin-requests/<%= req.request_id %>/approve" method="POST" style="display:inline;">
+                    <button class="btn btn-approve" type="submit">Approve</button>
+                  </form>
+                  <form action="/admin-requests/<%= req.request_id %>/reject" method="POST" style="display:inline;">
+                    <button class="btn btn-reject" type="submit">Reject</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      fetch('/logout', { method: 'POST' })
+        .then(() => {
+          window.location.href = '/login';
+        })
+        .catch(err => {
+          console.error('Logout failed:', err);
+        });
+    });
+  </script>
+</body>
+</html>

@@ -10,7 +10,7 @@
 <body>
   <div class="top-nav">
     <a class="imageasLink" href="/"><img src="/images/logo.png" alt="Sport Sphere Logo" class="logo" /></a>
-    <span class="welcome">Welcome Haitham!</span>
+    <span class="welcome">Welcome <%= user.fullname %>!</span>
     <a href="/admintournaments" class="nav-title">Tournaments</a>
     <div class="nav-actions">
       <button class="nav-button" id="add-tournament-btn">
@@ -33,8 +33,7 @@
           </a>
           <div class="deleteAndEditButtons">
             <button class="deleteButton" onclick="deleteTournament('<%= tournament.id %>')">Delete</button>
-            <button class="editButton" onclick="editTournament('<%= tournament.id %>')">Add Team</button>
-            
+            <button class="editButton" onclick="addTeamToTournament('<%= tournament.id %>')">Add Team</button>
           </div>
         </div>
       <% }) %>
@@ -51,6 +50,7 @@
   </div>
 
   <script src="/js/adminTournaments.js"></script>
+  <script src="/js/navbuttons.js"></script>
 </body>
 
 </html>
